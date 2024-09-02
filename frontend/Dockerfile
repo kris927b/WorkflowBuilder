@@ -1,18 +1,21 @@
-# Use the official Node.js image.
-# https://hub.docker.com/_/node
+# Use the official Node.js image as the base image
 FROM node:16
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the dependencies file to the working directory
-COPY package.json .
-
 # Install dependencies
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install
 
-# Copy the content of the frontend directory to the working directory
+# Copy the rest of the application code to the working directory
 COPY . .
 
-# Start the React app
-CMD ["npm", "start"]
+# Build the Next.js app
+RUN yarn build
+
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Start the Next.js app
+CMD ["yarn", "start"]
