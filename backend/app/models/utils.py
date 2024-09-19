@@ -1,7 +1,4 @@
-import uuid
-
-from pydantic import EmailStr
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, SQLModel
 
 
 # Generic message
